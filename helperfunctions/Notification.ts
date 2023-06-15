@@ -7,12 +7,22 @@ export async function displayNotification(beacon: string) {
   const channelId = await notifee.createChannel({
     id: 'default',
     name: 'Default Channel',
+    soundURI: './sound.mp3',
+    vibration: false,
   });
+  const title =
+      beacon === 'Beacon 1'
+        ? 'Clotee Brand ○ Promotion 📢'
+        : 'Clays Brand ○ Promotion 📣',
+    body =
+      beacon === 'Beacon 2'
+        ? '35% OFF at Shoes | Clays near you. 🥾'
+        : '50% OFF at Clothee Shop near you. 🛍';
 
   // Display a notification
   await notifee.displayNotification({
-    title: `${beacon} 🔔`,
-    body: 'Background service running properly' || 'Detected a beacon nearby',
+    title,
+    body: body,
     data: {beacon},
 
     android: {

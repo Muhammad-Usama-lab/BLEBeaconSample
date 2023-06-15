@@ -16,6 +16,7 @@ interface BluetoothLowEnergyApi {
   scanForPeripherals(): void;
   devices: Array<string>;
   color: string;
+  error: any;
 }
 
 const distanceBuffer: [number, number, number] = [-1, -1, -1];
@@ -23,6 +24,7 @@ const distanceBuffer: [number, number, number] = [-1, -1, -1];
 function useBLE(): BluetoothLowEnergyApi {
   // const [distance, setDistance] = useState<number>(-1);
   const [color, setColor] = useState<string>('');
+  const [error, setError] = useState<any>('');
   const [devices, setDevices] = useState<Array<string>>([]);
   const requestPermissions = async (cb: VoidCallback) => {
     if (Platform.OS === 'android') {
@@ -33,7 +35,7 @@ function useBLE(): BluetoothLowEnergyApi {
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: 'Location Permission',
-            message: 'Bluetooth Low Energy requires Location',
+            message: 'Bluetooth Beacon requires to acess Location ',
             buttonNeutral: 'Ask Later',
             buttonNegative: 'Cancel',
             buttonPositive: 'OK',
@@ -62,54 +64,68 @@ function useBLE(): BluetoothLowEnergyApi {
     }
   };
 
-  const scanForPeripherals = () =>
-    bleManager.startDeviceScan(
+  const callback = (error: any, device: any) => {
+    if (error) {
+      setError(error);
+      console.log('error', error);
+      if (
+        `${error?.message}`.includes(
+          'Device is not authorized to use BluetoothLE',
+        )
+      )
+        requestPermissions(state => {
+          console.log('state', state);
+        });
+      if (`${error?.message}`.includes('Location services are disabled'))
+        return openLocationSettings();
+      if (`${error?.message}`.includes('BluetoothLE is powered off'))
+        return openBluetoothSettings();
+    }
+
+    const beacon2MACAddress = 'E2:64:3B:F1:57:A1';
+    const beacon1MACAddress = 'EB:1D:A0:96:17:A0';
+
+    if (device?.name) {
+      console.log('device.name', device.name);
+      // console.log('device', device);
+      let copy = [...devices];
+      copy.push(device?.name);
+      let unique = [...new Set(copy)];
+      console.log('unique', unique);
+      setDevices(unique);
+      if (device?.id === beacon1MACAddress) {
+        setColor('#f0932b');
+        displayNotification('Beacon 1');
+      } else if (device?.id === beacon2MACAddress) {
+        setColor('#f0932b');
+        displayNotification('Beacon 2');
+      }
+    }
+  };
+
+  const scanForPeripherals = () => {
+    setTimeout(async () => {
+      let status = await bleManager.state();
+      console.log('status', status);
+      await bleManager.stopDeviceScan();
+    }, 1000 * 60 * 2);
+
+    return bleManager.startDeviceScan(
       null,
       {
         allowDuplicates: false,
         scanMode: ScanMode.Balanced,
       },
-      (error, device) => {
-        if (error) {
-          console.log(error?.message);
-          if (`${error?.message}`.includes('Location services are disabled'))
-            return openLocationSettings();
-          if (`${error?.message}`.includes('BluetoothLE is powered off'))
-            return openBluetoothSettings();
-        }
-
-        if (device?.name) {
-          setDevices(p => [...p, `${device?.name}|${device?.rssi}`]);
-          if (device?.name.includes('Beacon 1')) {
-            setColor('#f0932b');
-            displayNotification('Beacon 1');
-          }
-        }
-        // if (device?.name?.includes('T500+Pro')) {
-        // console.log('device', device);
-        // let distance = 10 ^ ((device.rssi - 52) / (10 * 4));
-        // console.log('distance', distance);
-        // const currentDistance = Math.pow(10, (-75 - device.rssi!) / (10 * 3));
-
-        // distanceBuffer[numOfSamples % 3] = currentDistance;
-
-        // if (distanceBuffer.includes(-1)) {
-        //   setDistance(-1);
-        // } else {
-        //   const sum = distanceBuffer.reduce((a, b) => a + b);
-        //   setDistance(Math.round(sum / distanceBuffer.length));
-        // }
-
-        // numOfSamples++;
-        // }
-      },
+      callback,
     );
+  };
 
   return {
     scanForPeripherals,
     requestPermissions,
     devices,
     color,
+    error,
   };
 }
 

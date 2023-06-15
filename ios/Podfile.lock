@@ -76,7 +76,7 @@ PODS:
   - libevent (2.1.12)
   - MultiplatformBleAdapter (0.1.9)
   - OpenSSL-Universal (1.1.1100)
-  - Permission-BluetoothPeripheral (3.6.1):
+  - Permission-BluetoothPeripheral (3.8.0):
     - RNPermissions
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -290,34 +290,7 @@ PODS:
   - react-native-ble-plx (2.0.3):
     - MultiplatformBleAdapter (= 0.1.9)
     - React-Core
-  - react-native-quick-base64 (2.0.5):
-    - React-Core
-  - react-native-skia (0.1.137):
-    - React
-    - React-callinvoker
-    - React-Core
-    - react-native-skia/Api (= 0.1.137)
-    - react-native-skia/Jsi (= 0.1.137)
-    - react-native-skia/RNSkia (= 0.1.137)
-    - react-native-skia/SkiaHeaders (= 0.1.137)
-    - react-native-skia/Utils (= 0.1.137)
-  - react-native-skia/Api (0.1.137):
-    - React
-    - React-callinvoker
-    - React-Core
-  - react-native-skia/Jsi (0.1.137):
-    - React
-    - React-callinvoker
-    - React-Core
-  - react-native-skia/RNSkia (0.1.137):
-    - React
-    - React-callinvoker
-    - React-Core
-  - react-native-skia/SkiaHeaders (0.1.137):
-    - React
-    - React-callinvoker
-    - React-Core
-  - react-native-skia/Utils (0.1.137):
+  - react-native-skia (0.1.193):
     - React
     - React-callinvoker
     - React-Core
@@ -387,9 +360,16 @@ PODS:
     - React-jsi (= 0.69.3)
     - React-logger (= 0.69.3)
     - React-perflogger (= 0.69.3)
-  - RNDeviceInfo (10.2.0):
+  - RNBackgroundFetch (4.1.10):
     - React-Core
-  - RNPermissions (3.6.1):
+  - RNDeviceInfo (10.6.0):
+    - React-Core
+  - RNNotifee (7.7.1):
+    - React-Core
+    - RNNotifee/NotifeeCore (= 7.7.1)
+  - RNNotifee/NotifeeCore (7.7.1):
+    - React-Core
+  - RNPermissions (3.8.0):
     - React-Core
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
@@ -442,7 +422,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-ble-plx (from `../node_modules/react-native-ble-plx`)
-  - react-native-quick-base64 (from `../node_modules/react-native-quick-base64`)
   - "react-native-skia (from `../node_modules/@shopify/react-native-skia`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -456,7 +435,9 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - "RNNotifee (from `../node_modules/@notifee/react-native`)"
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -522,8 +503,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-ble-plx:
     :path: "../node_modules/react-native-ble-plx"
-  react-native-quick-base64:
-    :path: "../node_modules/react-native-quick-base64"
   react-native-skia:
     :path: "../node_modules/@shopify/react-native-skia"
   React-perflogger:
@@ -550,8 +529,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNBackgroundFetch:
+    :path: "../node_modules/react-native-background-fetch"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNNotifee:
+    :path: "../node_modules/@notifee/react-native"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
   Yoga:
@@ -577,7 +560,7 @@ SPEC CHECKSUMS:
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   MultiplatformBleAdapter: 5a6a897b006764392f9cef785e4360f54fb9477d
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  Permission-BluetoothPeripheral: 67708853584bb9208c76d36d0e0ea4eafb97ea5b
+  Permission-BluetoothPeripheral: f3e5c11772acaffb511b4e99531e53de15f58239
   RCT-Folly: b9d9fe1fc70114b751c076104e52f3b1b5e5a95a
   RCTRequired: 66822c147facf02f7774af99825e0a31e39df42e
   RCTTypeSafety: 309306c4e711b14a83c55c2816a6cc490ec19827
@@ -593,8 +576,7 @@ SPEC CHECKSUMS:
   React-jsinspector: bb2605f98aada5d81f3494690da3ef3b4ff3b716
   React-logger: 23a50ef4c18bf9adbb51e2c979318e6b3a2e44a1
   react-native-ble-plx: f10240444452dfb2d2a13a0e4f58d7783e92d76e
-  react-native-quick-base64: e657e9197e61b60a9dec49807843052b830da254
-  react-native-skia: 860cc2544d03ef15884ed40480a7d7b4cae57b0d
+  react-native-skia: e92aaf74c38d71feb315deed516a91d211f90553
   React-perflogger: 39d2ba8cbcac54d1bb1d9a980dab348e96aef467
   React-RCTActionSheet: b1ad907a2c8f8e4d037148ca507b7f2d6ab1c66d
   React-RCTAnimation: 914a9ba46fb6e7376f7709c7ce825d53b47ca2ee
@@ -607,8 +589,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: dd8099eb46e9cee4692934bc8cbe5e9a4f5e8d31
   React-runtimeexecutor: 607eb048e22a16388c908ee1f6644200e8d1e19b
   ReactCommon: af7636436b382db7cde4583bbd642f0978e6e3ed
-  RNDeviceInfo: 8b83e99e290deaf1bab71673cc636776ef647b6f
-  RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
+  RNBackgroundFetch: 356c03f12514a66496c8b3685a868b5bbdaf6d00
+  RNDeviceInfo: 5a3cc16daa72631bb7bf37720b98ce861255caee
+  RNNotifee: 05692d7bb42b6c718a3906aeb8431c48ff2e8097
+  RNPermissions: 320825772cceb2fba9ae9dfa3e010c7fea15f3ca
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 44c64131616253fa83366295acdbce3d14926041
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

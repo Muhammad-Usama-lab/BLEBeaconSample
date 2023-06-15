@@ -12,6 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		68EF11022A39D0E7003012E7 /* libSystem.B.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 68EF11012A39D0E7003012E7 /* libSystem.B.dylib */; };
 		7699B88040F8A987B510C191 /* libPods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		5709B34CF0A7D63546082F79 /* Pods-BluetoothLowEnergySample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothLowEnergySample.release.xcconfig"; path = "Target Support Files/Pods-BluetoothLowEnergySample/Pods-BluetoothLowEnergySample.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.debug.xcconfig"; path = "Target Support Files/Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests/Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-BluetoothLowEnergySample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BluetoothLowEnergySample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68EF11012A39D0E7003012E7 /* libSystem.B.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.B.dylib; path = ../../../../../Downloads/libSystem.B.dylib; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BluetoothLowEnergySample/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.release.xcconfig"; path = "Target Support Files/Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests/Pods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68EF11022A39D0E7003012E7 /* libSystem.B.dylib in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-BluetoothLowEnergySample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +102,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68EF11012A39D0E7003012E7 /* libSystem.B.dylib */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-BluetoothLowEnergySample.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-BluetoothLowEnergySample-BluetoothLowEnergySampleTests.a */,
@@ -486,9 +490,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5GV8A5W5NW;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BluetoothLowEnergySample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Beacon;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -499,6 +504,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.decotechs.bleapp;
 				PRODUCT_NAME = BluetoothLowEnergySample;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -513,8 +519,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5GV8A5W5NW;
 				INFOPLIST_FILE = BluetoothLowEnergySample/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Beacon;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,6 +532,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = org.decotechs.bleapp;
 				PRODUCT_NAME = BluetoothLowEnergySample;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

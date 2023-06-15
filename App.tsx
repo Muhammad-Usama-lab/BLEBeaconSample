@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  Alert,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -10,15 +11,43 @@ import {
 
 import useBLE from './useBLE';
 import BackgroundFetch from 'react-native-background-fetch';
+import {requestBackgroundLocationPermission} from './backgroundTasks';
 // import BLEBackgroundService from './backgroundTasks/BLEBackgroundService';
 const App = () => {
   const [scanning, setScanning] = useState(false);
+  const [backgroundTask, setBackgroundTask] = useState(false);
   const [preparingToScan, setPreparing] = useState(false);
-  const {requestPermissions, scanForPeripherals, devices, color} = useBLE();
+
+  const {requestPermissions, scanForPeripherals, devices, color, error} =
+    useBLE();
+
+  useEffect(() => {
+    if (error) {
+      setScanning(false);
+    }
+  }, [error]);
 
   const scanForDevices = async () => {
+    
     if (!scanning) {
-      setPreparing(true);
+      console.log('scanning started', 'scanning started');
+
+      requestPermissions(async isGranted => {
+        if (isGranted) {
+          setScanning(true);
+          scanForPeripherals();
+        }
+      });
+      setTimeout(() => {
+        setScanning(false);
+      }, 1000 * 60 * 2);
+    }
+  };
+
+  const scheduleBackgroundTask = async () => {
+    let permission = await requestBackgroundLocationPermission();
+    // console.log('backgroundTask', backgroundTask, permission);
+    if (!backgroundTask && permission) {
       let response = await BackgroundFetch.scheduleTask({
         taskId: 'com.background.task',
         enableHeadless: true,
@@ -26,20 +55,13 @@ const App = () => {
         forceAlarmManager: true,
         startOnBoot: true,
         stopOnTerminate: false,
-        delay: 5000,
+        delay: 25000,
       });
-      if (response) {
-        setPreparing(false);
-        setScanning(true);
-      }
+      if (response) setBackgroundTask(true);
+    } else {
+      Alert.alert('Service Already running');
     }
-    // requestPermissions(async isGranted => {
-    //   if (isGranted) {
-    //     scanForPeripherals();
-    //   }
-    // });
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.heartRateTitleWrapper}>
@@ -50,6 +72,16 @@ const App = () => {
           }}>
           Beacon
         </Text>
+        <View style={{width: '80%', alignSelf: 'center'}}>
+          <Text
+            style={{
+              // textAlign: 'center',
+              fontSize: 16,
+              color: 'gray',
+            }}>
+            {` Note: \n\n✓ Make sure bluetooth connection is on\n✓ Make sure device location is on\n✓ Make sure location permission is granter to this app.`}
+          </Text>
+        </View>
 
         {/* <Text>Excellent Range: -30 dBm to -50 dBm</Text>
         <Text>Good Range: -51 dBm to -70 dBm</Text>
@@ -70,6 +102,15 @@ const App = () => {
         )}
       </View>
 
+      <TouchableOpacity
+        onPress={scheduleBackgroundTask}
+        style={[styles.ctaButton, {backgroundColor: '#3498db'}]}>
+        {!backgroundTask ? (
+          <Text style={styles.ctaButtonText}>Scan beacon in background</Text>
+        ) : (
+          <Text style={styles.ctaButtonText}>App initialized </Text>
+        )}
+      </TouchableOpacity>
       <TouchableOpacity onPress={scanForDevices} style={styles.ctaButton}>
         {preparingToScan ? (
           <Text style={styles.ctaButtonText}>Preparing to Scan ... </Text>

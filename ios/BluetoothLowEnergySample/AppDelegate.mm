@@ -17,7 +17,7 @@
 #import <react/config/ReactNativeConfig.h>
 
 
-#import <BLEBackgroundServiceModule/BLEBackgroundServiceModule.h>
+
 
 
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
@@ -38,7 +38,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   RCTAppSetupPrepareApp(application);
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
-  [BLEBackgroundServiceModule startBLEScan];
+
 
 #if RCT_NEW_ARCH_ENABLED
   _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
